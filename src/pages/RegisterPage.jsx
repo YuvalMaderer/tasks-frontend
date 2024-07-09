@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardContent,
@@ -11,12 +11,50 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import api from "@/services/api.service";
-import { useToast } from "@/components/ui/use-toast";
 import { motion } from "framer-motion";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
 
 function RegisterPage() {
-  const { toast } = useToast();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState(
+    "Password must be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters."
+  );
   const navigate = useNavigate();
+
+  function validatePassword(password) {
+    const minLength = 8;
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (
+      password.length >= minLength &&
+      hasUppercase &&
+      hasLowercase &&
+      hasNumber &&
+      hasSpecialChar
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function handlePasswordChange(ev) {
+    const password = ev.target.value;
+    if (!validatePassword(password)) {
+      setPasswordMessage(
+        "Password must be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters."
+      );
+    } else {
+      setPasswordMessage("Password is valid.");
+    }
+  }
 
   async function handleRegister(ev) {
     ev.preventDefault();
@@ -28,6 +66,13 @@ function RegisterPage() {
     const firstName = formData.get("firstName");
     const lastName = formData.get("lastName");
 
+    if (!validatePassword(password)) {
+      setErrorMessage(
+        "Password must be at least 8 characters long and include uppercase letters, lowercase letters, numbers, and special characters."
+      );
+      return;
+    }
+
     try {
       await api.post("/auth/register", {
         username,
@@ -37,17 +82,9 @@ function RegisterPage() {
         lastName,
       });
 
-      toast({
-        title: "Registration Successful",
-        description: "You have been successfully registered.",
-      });
-
       navigate("../login");
     } catch (error) {
-      toast({
-        title: "Registration Failed",
-        description: "There was an issue with your registration.",
-      });
+      setErrorMessage("There was an issue with your registration.");
     }
   }
 
@@ -75,13 +112,20 @@ function RegisterPage() {
                   required
                 />
                 <Label htmlFor="password">Password:</Label>
-                <Input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Enter Your Password"
-                  required
-                />
+
+                <HoverCard>
+                  <HoverCardTrigger>
+                    <Input
+                      id="password"
+                      name="password"
+                      type="password"
+                      placeholder="Enter Your Password"
+                      required
+                      onChange={handlePasswordChange}
+                    />
+                  </HoverCardTrigger>
+                  <HoverCardContent>{passwordMessage}</HoverCardContent>
+                </HoverCard>
                 <Label htmlFor="email">Email:</Label>
                 <Input
                   id="email"
@@ -105,6 +149,9 @@ function RegisterPage() {
                   required
                 />
               </div>
+              {errorMessage && (
+                <div className="text-red-600 text-sm mt-2">{errorMessage}</div>
+              )}
             </div>
             <Button className="w-24 mt-3" type="submit">
               Register

@@ -63,7 +63,7 @@ const HomePage = () => {
             <img
               src="https://i.ibb.co/KrtfXdC/OIG4-b8-Uy-OO3p.jpg"
               alt="OIG4-b8-Uy-OO3p"
-              className="rounded-lg shadow-md mx-auto h-96 transition-transform duration-300 hover:scale-105"
+              className="rounded-lg shadow-md mx-auto h-48 sm:h-64 md:h-96 transition-transform duration-300 hover:scale-105"
             />
           </div>
         </AnimatedCard>
@@ -270,7 +270,7 @@ const HomePage = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M12 5v14m7-7H5"
+                    d="M5 15l7-7 7 7"
                   />
                 </svg>
                 <div>
@@ -281,9 +281,9 @@ const HomePage = () => {
                     Step 4: Collaborate
                   </Typography>
                   <Typography className="text-gray-600">
-                    Collaborate with team members by sharing projects and
-                    assigning tasks. Track their progress and work together
-                    towards achieving common goals.
+                    Share tasks and projects with your team. Assign tasks, track
+                    their progress, and work together to achieve your goals
+                    efficiently.
                   </Typography>
                 </div>
               </div>
@@ -291,73 +291,19 @@ const HomePage = () => {
           </div>
         </AnimatedCard>
 
-        {/* Testimonials */}
+        {/* CTA Section */}
         <AnimatedCard>
-          <div className="bg-gray-100 p-6 rounded-lg shadow-md mb-12">
+          <div className="text-center mt-12">
             <Typography
               variant="h3"
               className="text-xl font-semibold text-gray-800 mb-6"
             >
-              What Our Users Say
+              Ready to Get Started?
             </Typography>
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <Typography className="text-md font-semibold text-gray-800 mb-2">
-                  "This app has transformed the way I handle my tasks. The
-                  intuitive interface and powerful features make it a must-have
-                  for anyone looking to boost productivity."
-                </Typography>
-                <Typography className="text-gray-600">
-                  - Alex Johnson
-                </Typography>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <Typography className="text-md font-semibold text-gray-800 mb-2">
-                  "I can't imagine managing my tasks without this app. The
-                  customizable reminders and progress tracking are game-changers
-                  for my daily routine."
-                </Typography>
-                <Typography className="text-gray-600">- Jamie Lee</Typography>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <Typography className="text-md font-semibold text-gray-800 mb-2">
-                  "The task management features are fantastic. I love how I can
-                  organize my tasks into projects and track my progress with
-                  ease. Highly recommended!"
-                </Typography>
-                <Typography className="text-gray-600">
-                  - Morgan Davis
-                </Typography>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <Typography className="text-md font-semibold text-gray-800 mb-2">
-                  "The integration with other tools is seamless. I can sync my
-                  tasks with my calendar and email, making it incredibly
-                  convenient to stay on top of everything."
-                </Typography>
-                <Typography className="text-gray-600">
-                  - Taylor Martinez
-                </Typography>
-              </div>
-            </div>
-          </div>
-        </AnimatedCard>
-
-        {/* Call to Action */}
-        <AnimatedCard>
-          <div className="text-center">
-            <Typography className="text-md text-gray-700 mb-4">
-              Ready to revolutionize your task management? Get started today and
-              experience the difference in your productivity. Click the button
-              below to dive in and start organizing your tasks like never
-              before!
-            </Typography>
-            <Link
-              to="/tasks"
-              className="w-full md:w-auto px-6 py-3 text-lg font-semibold transition-transform duration-300 hover:scale-105"
-            >
-              <span className="text-2xl font-bold">+</span>
-              <span className="ml-2">Add New Task</span>
+            <Link to="/signup" className="btn btn-primary">
+              <button className="bg-blue-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-colors duration-300">
+                Sign Up Now
+              </button>
             </Link>
           </div>
         </AnimatedCard>

@@ -37,10 +37,11 @@ function ContactPage() {
 
     const { name, email, message } = formData;
     try {
-      const response = await api.post(
-        "http://localhost:3000/api/contact/send",
-        { name, email, message }
-      );
+      const response = await api.post("/contact/send", {
+        name,
+        email,
+        message,
+      });
 
       if (response.status === 200) {
         setStatus("Message sent successfully!");
